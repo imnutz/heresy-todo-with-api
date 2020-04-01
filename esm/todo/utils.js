@@ -1,0 +1,26 @@
+const db = Object.create(null);
+const storage = name => (db[name] || set(name));
+
+export const STORAGE_KEY = ":todo-heresy";
+export const data = name => {
+  const info = storage(name);
+  if (!info.id) {
+    info.id = 0;
+    info.items = {};
+  }
+  return info;
+};
+
+export const update = (name, data) => {
+  db[name] = data;
+};
+
+function handleEvent() {
+  const {name} = this;
+  localStorage.setItem(name, JSON.stringify(db[name]));
+}
+
+function set(name) {
+  addEventListener('beforeunload', {name, handleEvent}, false);
+  return (db[name] = JSON.parse(localStorage.getItem(name) || '{}'));
+}
