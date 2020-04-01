@@ -2,10 +2,10 @@ import { SAM, api } from "sam-pattern";
 
 import initialState from "./initial_state";
 
-import header from "./header";
-import init from "./init";
-import main from "./main";
-import footer from "./footer";
+import header from "./header_component";
+import init from "./init_component";
+import main from "./main_component";
+import footer from "./footer_component";
 
 import setupAction from "./actions";
 
@@ -28,14 +28,6 @@ const samWrapper = {
     this.samApi.addComponent(this.main);
     this.samApi.addComponent(this.init);
     this.samApi.addComponent(this.footer);
-
-    // this.intents = {
-    //   ...actions,
-    //   clearCompleted,
-    //   showActive,
-    //   showCompleted,
-    //   showAll,
-    // };
   },
 
   setRenderer(renderer) {

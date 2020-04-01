@@ -3587,6 +3587,7 @@
     ]
   };
 
+  // SAM actions
   const getAllTodosAction = () => {
     return API.getTodos().then(todos => {
       const transformedTodos = todos.reduce((hash, todo) => {
@@ -3607,6 +3608,16 @@
     };
   };
 
+  const markDoneAction = (id, checked) => ({ markOne: true, id, checked });
+  const markAllDoneAction = (checked) => ({ markAll: true, checked });
+  const deleteTodoAction = (id) => ({ deleteTodo: true, id });
+
+  const clearCompletedAction = () => ({ clearCompleted: true });
+  const showActiveAction = () => ({ showActive: true });
+  const showCompletedAction = () => ({ showCompleted: true });
+  const showAllAction = () => ({ showAll: true });
+
+  // API
   const saveTodoAction = todo => {
     return API.createTodo(todo).then(newTodo => {
       return {
@@ -3642,15 +3653,6 @@
 
     return Promise.all(promises).then(() => ({ deletingTodosDone: true }));
   };
-
-  const markDoneAction = (id, checked) => ({ markOne: true, id, checked });
-  const markAllDoneAction = (checked) => ({ markAll: true, checked });
-  const deleteTodoAction = (id) => ({ deleteTodo: true, id });
-
-  const clearCompletedAction = () => ({ clearCompleted: true });
-  const showActiveAction = () => ({ showActive: true });
-  const showCompletedAction = () => ({ showCompleted: true });
-  const showAllAction = () => ({ showAll: true });
 
   var setupAction = (sam) => {
     const nap = (model) => () => {
@@ -3741,14 +3743,6 @@
       this.samApi.addComponent(this.main);
       this.samApi.addComponent(this.init);
       this.samApi.addComponent(this.footer);
-
-      // this.intents = {
-      //   ...actions,
-      //   clearCompleted,
-      //   showActive,
-      //   showCompleted,
-      //   showAll,
-      // };
     },
 
     setRenderer(renderer) {
